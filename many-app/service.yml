@@ -1,12 +1,16 @@
-apiVersion: v1
-kind: Service
+kind: Ingress
+apiVersion: extensions/v1beta1
 metadata:
-  name: simple-service
+  name: guestbook
+  namespace: spinnaker
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
-  type: NodePort
-  selector:
-    app: trivial-go-web-app
-  ports:
-      - nodePort: 31000
-        protocol: TCP
-        port: 8080
+  rules:
+    - host: guestbook.gitops.local
+      https:
+      paths:
+        - path: /
+          backend:
+            serviceName: guestbook
+            servicePort: 80
