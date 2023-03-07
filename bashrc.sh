@@ -143,5 +143,5 @@ fi
 
 #export GOPATH=/home/trutr/go-jobs
 #export GOBIN=$GOPATH/bin
-export OPENAI_API_KEY='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'
+export OPENAI_API_KEY='s'
 export PATH="$PATH:/home/trutr/.bin"
