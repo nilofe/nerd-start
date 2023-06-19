@@ -1,4 +1,12 @@
 terraform {
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "loki-tf"
+
+    workspaces {
+      name = "gcp-"
+    }
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
