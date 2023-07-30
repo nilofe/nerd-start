@@ -1,13 +1,12 @@
 """A Python Pulumi program"""
-
 import pulumi
-from pulumi_azure_native import resources, networks, compute
+from pulumi_azure_native import resources, network, compute
 from pulumi_random import random_string
 import base64
 
 # Importando las configuraciones del los programs para la VM
 config = pulumi.Config()
-vm_name = config.get("vmName", "azVM")
+vm_name = config.get("vmName", "azvm")
 vm_size = config.get("vmSize", "Standard_B1s")
 os_image = config.get("osImage", "Debian:debian-11:11:latest")
 admin_username = config.get("adminUsername", "Azure for Students")
@@ -29,12 +28,11 @@ virtual_network = network.VirtualNetwork(
         ],
     ),
     subnets=[
-        networks.SubnetArgs(
+        network.SubnetArgs(
             name=f"{vm_name}-subnet",
-            address_prefixes="10.0.0.0/24",
+            address_prefix="10.0.1.0/24",
         ),
     ],
-
 )
 # Usamdo un unico nombre de DNS, usamos un string ramdon 
 domain_name_label = random_string.RandomString(
