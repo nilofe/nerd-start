@@ -1,6 +1,26 @@
 name: iac-lab1
-runtime:
-  name: python
-  options:
-    virtualenv: venv
+runtime: python
 description: A minimal Python Pulumi program
+template:
+  description: Desplegando una maquina virtual en Azure con python
+  config:
+    azure-native:location:
+      description: Donde se localizara el deployment
+      default: WestUS2
+    adminUsername:
+      description: Como el usuario de la cuenta para la VM
+      default: Azure for Students
+    vmName:
+      description: Nombre de el host de DNS que se usará en la VM
+      default: my-server
+    vmSize:
+      description: El tamaño de la VM que se usará
+      default: Standard_B1s
+    osImage:
+      description: La imagen base Azure URN que se usará en la VM
+      default: Debian:debian-11:11:latest
+    servicePort:
+      description: El puerto de servicio que se expondra HTTP para la  VM
+      default: "80"
+    sshPublicKey:
+      description: la clave publica de SSH para la autenticacíon
