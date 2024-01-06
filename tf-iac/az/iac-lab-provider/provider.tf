@@ -1,12 +1,4 @@
 terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
-    organization = "loki-tf"
-
-    workspaces {
-      name = "gcp-"
-    }
-  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -23,7 +15,12 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "myTestResourceGroupMany"
+  name     = "like-and-test-dev"
   location = "westus2"
+  tags = {
+    environment = "dev"
+    source      = "Terraform"
+    owner       = "slvit"
+  }
 }
 
