@@ -2,7 +2,7 @@ resource "google_compute_instance" "doki" {
   name         = "doki"
   machine_type = "f1-micro"
 
-  tags = ["dev", "test"]
+  tags = ["http-server"]
 
   boot_disk {
     auto_delete = true
@@ -22,7 +22,7 @@ resource "google_compute_instance" "doki" {
   can_ip_forward      = false
   deletion_protection = false
   enable_display      = false
-
+    
 
   network_interface {
     network = "red-a"
@@ -33,6 +33,7 @@ resource "google_compute_instance" "doki" {
     subnetwork = "project/test-dev-54830/regions/us-east1/subnetworks/red-a-subnet"
 
   }
+  
   scheduling {
     automatic_restart   = false
     on_host_maintenance = "TERMINATE"
@@ -41,8 +42,7 @@ resource "google_compute_instance" "doki" {
   }
 
   metadata = {
-    "foo"          = "bar"
-    startup_script =  "sudo apt update ; sudo snap install docker ; sudo docker pull nilofe/test-challege-ia:main ; sudo docker run -d -p 80:8000 --name dev-a nilofe/test-challege-ia:main"
+    startup-script = file("./script.sh")
        
   }
 
@@ -56,4 +56,5 @@ resource "google_compute_instance" "doki" {
     enable_secure_boot          = false
     enable_vtpm                 = true
   }
+  
 }
