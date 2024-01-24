@@ -1,10 +1,21 @@
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
+  tags = {
+    environment = "dev"
+    source      = "Terraform"
+    owner       = "slvit"
+  }
+}
+
 resource "azurerm_virtual_machine" "main" {
   name                  = "${var.name}-vm"
-  location              = azurerm_resource_group.example.location
-  resource_group_name   = azurerm_resource_group.example.name
+  location              = var.location
+  resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size               = "Standard_DS1_v2"
-
+  vm_size               = "Standard_B1s"
+  delete_os_disk_on_termination = true
+  delete_data_disks_on_termination = true
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   # delete_os_disk_on_termination = true
 
