@@ -16,12 +16,14 @@ resource "azurerm_virtual_machine" "main" {
   vm_size               = "Standard_B1s"
   delete_os_disk_on_termination = true
   delete_data_disks_on_termination = true
-  # Uncomment this line to delete the OS disk automatically when deleting the VM
-  # delete_os_disk_on_termination = true
-
-  # Uncomment this line to delete the data disks automatically when deleting the VM
-  # delete_data_disks_on_termination = true
-
+  
+  os_profile_linux_config {
+  disable_password_authentication = true
+  ssh_keys {
+    path     = "/home/azureuser/.ssh/authorized_keys"
+    key_data = var.ssh_key
+  }
+  }
   storage_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
@@ -34,14 +36,7 @@ resource "azurerm_virtual_machine" "main" {
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
-  os_profile {
-    computer_name  = "hostname"
-    admin_username = "testadmin"
-    admin_password = "Password1234!"
-  }
-  os_profile_linux_config {
-    disable_password_authentication = false
-  }
+
   tags = {
     environment = "staging"
   }
