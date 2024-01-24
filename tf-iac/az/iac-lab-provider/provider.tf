@@ -14,13 +14,4 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "like-and-test-dev"
-  location = "westus2"
-  tags = {
-    environment = "dev"
-    source      = "Terraform"
-    owner       = "slvit"
-  }
-}
 
