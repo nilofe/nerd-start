@@ -16,6 +16,7 @@ resource "azurerm_virtual_machine" "main" {
   vm_size               = "Standard_B1s"
   delete_os_disk_on_termination = true
   delete_data_disks_on_termination = true
+  depends_on = [ azurerm_virtual_network.main, azurerm_network_interface.main ]
   
   os_profile_linux_config {
   disable_password_authentication = true
