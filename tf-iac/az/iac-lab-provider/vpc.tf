@@ -13,6 +13,18 @@ resource "azurerm_subnet" "internal" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
+resource "azurerm_public_ip" "example" {
+  name                    = "test-pip"
+  location                = var.location
+  resource_group_name     = var.resource_group_name
+  allocation_method       = "Dynamic"
+  idle_timeout_in_minutes = 30
+
+  tags = {
+    environment = "test"
+  }
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "${var.name}-nic"
   location            = var.location

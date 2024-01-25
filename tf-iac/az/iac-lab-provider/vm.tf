@@ -41,3 +41,8 @@ resource "azurerm_virtual_machine" "main" {
     environment = "staging"
   }
 }
+
+data "azurerm_public_ip" "example" {
+  name                = azurerm_public_ip.example.name
+  resource_group_name = var.resource_group_name
+}
