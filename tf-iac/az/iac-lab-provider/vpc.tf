@@ -35,5 +35,7 @@ resource "azurerm_network_interface" "main" {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
+    private_ip_address            = "10.0.2.5"
+    public_ip_address_id          = azurerm_public_ip.example.id 
   }
 }

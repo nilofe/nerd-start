@@ -9,6 +9,9 @@ output "id" {
   value = azurerm_network_interface.main.id
 }
 output "MACHINE_SSH_CONNECT" {
-  value = "ssh  ubuntu@${data.azurerm_public_ip.example.ip_address}"
+  value = "ssh  ${var.name}@${data.azurerm_public_ip.example.ip_address}"
 }
   
+output "public_ip_address" {
+  value = data.azurerm_public_ip.example.ip_address
+}

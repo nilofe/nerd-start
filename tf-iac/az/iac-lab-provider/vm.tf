@@ -18,11 +18,16 @@ resource "azurerm_virtual_machine" "main" {
   delete_data_disks_on_termination = true
   depends_on = [ azurerm_virtual_network.main, azurerm_network_interface.main ]
   
+  os_profile {
+    computer_name  = "hostname"
+    admin_username = var.name
+    admin_password = "Password1234!"
+  }
   os_profile_linux_config {
   disable_password_authentication = true
   ssh_keys {
-    path     = "/home/azureuser/.ssh/authorized_keys"
-    key_data = var.ssh_key
+    path     = "/home/${var.name}/.ssh/authorized_keys"
+    key_data = file(var.ssh_key)
   }
   }
   storage_image_reference {
