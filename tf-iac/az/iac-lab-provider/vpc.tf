@@ -20,6 +20,7 @@ resource "azurerm_public_ip" "example" {
   resource_group_name     = var.resource_group_name
   allocation_method       = "Dynamic"
   idle_timeout_in_minutes = 30
+  #depends_on = [ azurerm_resource_group.rg ]
 
   tags = {
     environment = "test"
